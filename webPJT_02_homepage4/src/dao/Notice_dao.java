@@ -16,6 +16,62 @@ public class Notice_dao {
 	PreparedStatement  ps	  = null;
 	ResultSet		   rs 	  = null;
 	
+	
+	//삭제
+	public int deleteNotice(String no){
+		int result = 0;
+		String query = "delete from h02_notice\r\n" + 
+				"where no = '"+no+"";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			result = ps.executeUpdate();
+			
+		}catch(SQLException se) {
+			System.out.println(" deleteNotice() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" deleteNotice() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	//수정
+	public int updateNotice(Notice_dto dto){
+		int result = 0;
+		String query = "update h02_notice\r\n" + 
+						"set title = '"+dto.getTitle()+"',\r\n" + 
+						"    content = '"+dto.getContent()+"',\r\n" + 
+						"    attach = '"+dto.getAttach()+"',\r\n" + 
+						"    reg_name = '"+dto.getReg_name()+"',\r\n" + 
+						"    reg_date = '"+dto.getReg_date()+"'\r\n" + 
+						"where no = '"+dto.getNo()+"'";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			result = ps.executeUpdate();
+			
+		}catch(SQLException se) {
+			System.out.println(" updateNotice() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" updateNotice() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return result;
+	}
+	
+	
+	
 	//조회수 증가
 		public void hitCount(String no) {
 			String query = "update h02_notice\r\n" + 
@@ -41,7 +97,7 @@ public class Notice_dao {
 	//등록조회
 	public Notice_dto getNoticeView(String no){
 		Notice_dto dto = null;
-		String query = " select no, title, content, nvl(attach,' '), reg_name, to_char(reg_date,'yyyy-MM-dd'), hit\r\n" + 
+		String query = " select no, title, content, attach, reg_name, to_char(reg_date,'yyyy-MM-dd'), hit\r\n" + 
 						" from h02_notice\r\n" + 
 						" where no = '"+no+"'";
 

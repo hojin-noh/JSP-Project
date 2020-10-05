@@ -20,8 +20,19 @@
 		String no = dao.getNoticeNo();
 		Notice_dto dto = new Notice_dto(no, title, content, attach, reg_name, reg_date, 0);
 		result = dao.SaveNotice(dto);
-		if(result == 1) msg=" 등록되었습니다. ";
+		if(result == 1) msg=" 등록 되었습니다. ";
 		else msg=" 등록 실패~ ";
+	}else if(gubun.equals("update")){
+		String no = request.getParameter("t_no");
+		Notice_dto dto = new Notice_dto(no, title, content, attach, reg_name, reg_date, 0);
+		result = dao.updateNotice(dto);
+		if(result == 1) msg=" 수정 되었습니다. ";
+		else msg=" 수정 실패~ ";
+	}else if(gubun.equals("delete")){
+		String no = request.getParameter("t_no");
+		result = dao.deleteNotice(no);
+		if(result == 1) msg=" 삭제 되었습니다. ";
+		else msg=" 삭제 실패~ ";
 	}
 	
 	

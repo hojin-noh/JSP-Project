@@ -8,7 +8,28 @@
 	Notice_dto dto = dao.getNoticeView(no);
 	
 %>    
-<%@ include file="/common/common_subpage_head.jsp"%>	
+
+<%@ include file="/common/common_subpage_head.jsp"%>
+
+<script type="text/javascript">
+		function goUpdateForm(){
+			noti.method="post";
+			noti.action="notice_update.jsp";
+			noti.submit();
+		}
+		function goDelete(){
+			if(confirm(" 정말 삭제 하시겠습니까? ")){
+			noti.method="post";
+			noti.action="db_notice.jsp";
+			noti.submit();
+			}
+		}
+		
+</script>	
+		<form name="noti">
+			<input type="hidden" name="t_no" value="<%=no%>">
+			<input type="hidden" name="t_work_gubun" value="delete">
+		</form>
 		<div id="b_left">
 			<P>NOTICE & NEWS</P>
 			<ul>
@@ -46,7 +67,11 @@
 					</tr>	
 					<tr>
 						<th>Attach</th>
-						<td colspan="3"><%=dto.getAttach() %></td>
+						<td colspan="3">
+						<% if(dto.getAttach() != null){ %>
+							<%=dto.getAttach() %>
+						<% } %>
+						</td>
 					</tr>	
 					<tr>
 						<th>Writer</th>
@@ -58,8 +83,8 @@
 				</tbody>
 			</table>
 			<div class="buttonGroup">
-				<a href="" class="butt">Delete</a>
-				<a href="notice_update.jsp" class="butt">Update</a>
+				<a href="javascript:goDelete()" class="butt">Delete</a>
+				<a href="javascript:goUpdateForm()" class="butt">Update</a>
 				<a href="notice_list.jsp" class="butt">List</a>
 			</div>	
 		</div>	
