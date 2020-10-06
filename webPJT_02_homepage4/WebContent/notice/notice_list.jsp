@@ -4,6 +4,8 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	Notice_dao dao = new Notice_dao();
+	String pageType = "notice";
+	dao.DefinitionPageType(pageType);
 	
 	String select = request.getParameter("t_select");
 	String search = request.getParameter("t_search");

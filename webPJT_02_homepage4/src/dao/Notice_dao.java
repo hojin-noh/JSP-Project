@@ -7,20 +7,29 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import org.apache.catalina.connector.Request;
+
 import common.DBConnectionOracle;
 import dto.Notice_dto;
 
 public class Notice_dao {
+
 	DBConnectionOracle common = new DBConnectionOracle();
 	Connection connection	  = null;
 	PreparedStatement  ps	  = null;
 	ResultSet		   rs 	  = null;
 	
+	String pageType = "";
+	
+	public void DefinitionPageType(String pageType){
+		this.pageType = pageType;
+	}
+	
 	
 	//삭제
 	public int deleteNotice(String no){
 		int result = 0;
-		String query = "delete from h02_notice\r\n" + 
+		String query = "delete from h02_"+pageType+"\r\n" + 
 				"where no = '"+no+"";
 		
 		try {
@@ -46,7 +55,7 @@ public class Notice_dao {
 	//수정
 	public int updateNotice(Notice_dto dto){
 		int result = 0;
-		String query = "update h02_notice\r\n" + 
+		String query = "update h02_"+pageType+"\r\n" + 
 						"set title = '"+dto.getTitle()+"',\r\n" + 
 						"    content = '"+dto.getContent()+"',\r\n" + 
 						"    attach = '"+dto.getAttach()+"',\r\n" + 
@@ -74,7 +83,7 @@ public class Notice_dao {
 	
 	//조회수 증가
 		public void hitCount(String no) {
-			String query = "update h02_notice\r\n" + 
+			String query = "update h02_"+pageType+"\r\n" + 
 							" set hit = hit + 1\r\n" + 
 							" where no = '"+no+"'";
 			
@@ -98,7 +107,7 @@ public class Notice_dao {
 	public Notice_dto getNoticeView(String no){
 		Notice_dto dto = null;
 		String query = " select no, title, content, attach, reg_name, to_char(reg_date,'yyyy-MM-dd'), hit\r\n" + 
-						" from h02_notice\r\n" + 
+						" from h02_"+pageType+"\r\n" + 
 						" where no = '"+no+"'";
 
 		try {
@@ -137,7 +146,7 @@ public class Notice_dao {
 	public ArrayList<Notice_dto> getNoticeList(String select, String search){
 		ArrayList<Notice_dto> arr = new ArrayList<Notice_dto>();
 		String query = " select no, title, attach, reg_name, to_char(reg_date,'yyyy-MM-dd'), hit\r\n" + 
-						" from h02_notice\r\n" + 
+						" from h02_"+pageType+"\r\n" + 
 						" where "+select+" like '%"+search+"%'\r\n" + 
 						" order by no desc";
 		
@@ -178,7 +187,7 @@ public class Notice_dao {
 	// 등록
 	public int SaveNotice(Notice_dto dto){
 		int result = 0;
-		String query = "insert into h02_notice\r\n" + 
+		String query = "insert into h02_"+pageType+"\r\n" + 
 					" (no, title, content, attach, reg_name, reg_date)\r\n" + 
 					" values\r\n" + 
 					" ('"+dto.getNo()+"','"+dto.getTitle()+"','"+dto.getContent()+"',"
@@ -204,7 +213,7 @@ public class Notice_dao {
 	// 번호 생성
 		public String getNoticeNo() {
 			String maxNo = "";
-			String query = " select max(no) from h02_notice ";
+			String query = " select max(no) from h02_"+pageType+" ";
 			
 			try {
 				connection = common.getConnection();
