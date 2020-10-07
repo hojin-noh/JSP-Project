@@ -26,6 +26,23 @@
 			msg=" 등록 성공 ";
 		}else msg=" 등록 실패 ";
 	}
+	if(gubun.equals("delete")){
+		String no = request.getParameter("t_no");
+		result = dao1.deleteNews(no);
+		if(result == 1){
+			msg=" 삭제 성공 ";
+		}else msg=" 삭제 실패 ";
+	}
+	if(gubun.equals("update")){
+		String no = request.getParameter("t_no");
+		String attach = request.getParameter("t_attach");
+		Notice_dto dto = new Notice_dto(no, title, content, attach, reg_name, reg_date, 0);
+		result = dao1.updateNews(dto);
+		
+		if(result == 1){
+			msg=" 수정 성공 ";
+		}else msg=" 수정 실패 ";
+	}
 %>    
     
     

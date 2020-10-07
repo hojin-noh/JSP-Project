@@ -17,6 +17,57 @@ public class News_dao {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
+	//수정
+	public int updateNews(Notice_dto dto) {
+		int result = 0;
+		String query = "  update h02_news\r\n" + 
+						"  set title='"+dto.getTitle()+"',\r\n" + 
+						"      content='"+dto.getContent()+"',\r\n" + 
+						"      attach='"+dto.getAttach()+"',\r\n" + 
+						"      reg_name='"+dto.getReg_name()+"',\r\n" + 
+						"      reg_date='"+dto.getReg_date()+"'\r\n" + 
+						"  where no = '"+dto.getNo()+"'";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			result = ps.executeUpdate();
+			
+		}catch(SQLException se) {
+			System.out.println(" updateNews() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" updateNews() 오류 ");
+		}finally {
+			common.close(connection, ps);
+		}
+		
+		return result;
+	}
+	
+	
+	//삭제
+	public int deleteNews(String no) {
+		int result = 0;
+		String query=" delete from h02_news\r\n" + 
+					" where no='"+no+"'";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			result = ps.executeUpdate();
+			
+		}catch(SQLException se) {
+			System.out.println(" deleteNews() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" deleteNews() 오류 ");
+		}finally {
+			common.close(connection, ps);
+		}
+		
+		
+		return result;
+		
+	}
 	
 	
 	

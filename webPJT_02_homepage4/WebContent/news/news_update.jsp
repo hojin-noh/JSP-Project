@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ include file="/common/common_subpage_head.jsp" %>
+ <%@ page import="dao.*,dto.*" %>
+ <%
+ 	Notice_dao dao = new Notice_dao();
+	String pageType = "news";
+	dao.DefinitionPageType(pageType);
+
+	String no =request.getParameter("t_no");
+ 	Notice_dto dto  = dao.getNoticeView(no);
+ 
+ %>
+<script type="text/javascript">
+	function goUpdate(){
+		news.method="post";
+		news.action="db_news.jsp";
+		news.submit();
+	}
+</script>
+ 
+ <form name="news">
+ 	<input type="text" name="t_no" value="<%=no%>">
+ 	<input type="text" name="t_work_gubun" value="update">
+
 		<div id="b_left">
 			<P>NOTICE & NEWS</P>
 			<ul>
@@ -27,31 +49,34 @@
 				<tbody>
 					<tr>
 						<th>Title</th>
-						<td colspan="3"><input type="text" class="input600" value="구매 절차 과정 안내 드립니다."></td>
+						<td colspan="3"><input type="text" name="t_title" class="input600" value="<%=dto.getTitle()%>"></td>
 					</tr>	
 					<tr>
 						<th>Content</th>
-						<td colspan="3"><textarea class="textArea_H250">구매 절차 과정 안내 드립니다.구매 절차 과정 안내 드립니다.구매 절차 과정 안내 드립니다.</textarea></td>
+						<td colspan="3"><textarea name="t_content" class="textArea_H250"><%=dto.getContent()%></textarea></td>
 					</tr>	
 					<tr>
 						<th>Attach</th>
-						<td colspan="3">구매안내.hwp 삭제<input type="checkbox"><br>
-							<input type="file" class="input600">
+						<td colspan="3">
+							<%if(dto.getAttach() != null){ %>
+							<%=dto.getAttach()%> 삭제<input type="checkbox"><br>
+							<%} %>
+							<input type="file" name="t_attach" class="input600">
 						</td>
 					</tr>	
 					<tr>
 						<th>Writer</th>
-						<td><input type="text" value="관리자" class="input100"></td>
+						<td><input type="text" name="t_reg_name" value="<%=dto.getReg_name() %>" class="input100"></td>
 						<th>RegDate</th>
-						<td><input type="date" value="2020-09-01" class="input130"></td>
+						<td><input type="date" name="t_reg_date" value="<%=dto.getReg_date() %>" class="input130"></td>
 					</tr>	
 
 				</tbody>
 			</table>
 			<div class="buttonGroup">
-				
-				<a href="notice_list.html" class="butt">Save</a>
-				<a href="notice_list.html" class="butt">List</a>
+ </form>				
+				<a href="javascript:goUpdate()" class="butt">Update</a>
+				<a href="news_list.jsp" class="butt">List</a>
 			</div>	
 		<%@ include file="/common/common_subpage_bottom.jsp" %>
 
