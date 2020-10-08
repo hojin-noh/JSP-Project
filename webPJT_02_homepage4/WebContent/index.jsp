@@ -74,8 +74,8 @@
 			<div id="b_top_menu">
 				<ul class="top_menu">
 					<li><a href="" class="allclick"><i class="fas fa-bars"></i></a></li>
-					<li><a href="member/member_join.html">Contack</a></li>
-					<li><a href="member/member_login.html">Login</a></li>
+					<li><a href="member/member_join.jsp">Contact</a></li>
+					<li><a href="member/member_login.jsp">Login</a></li>
 					<li><a href=""><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
 				</ul>
 			</div>	
