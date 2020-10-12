@@ -1,4 +1,8 @@
 <%@ page pageEncoding="UTF-8"%>
+<%
+	String session_name = (String)session.getAttribute("session_name");
+	//out.print(" name : " + session_name);
+%>  
 <html>
 <head>
 <link href="/css/sub_c.css" rel="stylesheet">
@@ -24,9 +28,16 @@
 
 		<div id="b_top_menu">
 			<ul class="top_menu">
-				<li><a href="../member/member_join.html">Contact</a></li>
-				<li><a href="../member/member_login.html">LogIn</a></li>
-				<li><a href="../index.html"><i class="fa fa-home"></i>Home</a></li>
+				<%					if(session_name == null){	 %>					
+					<li><a href="/member/member_join.jsp">Contact</a></li>
+					<li><a href="/member/member_login.jsp">Login</a></li>
+<%										} else{	 %>
+					<li><a href="/member/member_logout.jsp">Logout</a></li>
+<%											} %>					
+					<li><a href=""><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+<%					if(session_name != null){	 %>						
+					<li><a href=""><%=session_name%>님 Home</a></li>
+<%											}	 %>	
 			</ul>
 		</div>	
 

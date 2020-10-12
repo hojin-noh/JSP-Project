@@ -25,17 +25,16 @@
 	Member_dto dto = new Member_dto(id, name, pw, area, address, tel_1,tel_2, tel_3, mf, hobby_t, hobby_r, hobby_s, reg_date);
 	int result = dao.saveMember(dto);
 	String msg = "";
-	if(result == 1) msg=" 회원 가입 실패~ ";
+	if(result == 1) msg= name + " 회원 가입 성공~ ";
+	else msg=" 회원 가입 실패~ ";
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <script type="text/javascript">
 	alert("<%=msg%>");
-	lacation.href="/index.jsp";
+	location.href="/index.jsp";
 </script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 

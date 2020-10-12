@@ -15,6 +15,37 @@ public class Member_dao {
 	PreparedStatement  ps	  = null;
 	ResultSet		   rs 	  = null;
 	
+	//로그인 시 id 랑 비밀번호 조회
+	public String getLoginName(String id, String pw) {
+		String name = null;
+		String query = "select name\r\n" + 
+						" from h02_member\r\n" + 
+						" where id='"+id+"'and pw ='"+pw+"'";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+		if(rs.next()) {
+			name = rs.getString(1);
+			
+		}
+			
+		}catch(SQLException se) {
+			System.out.println(" getLoginName() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" getLoginName() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return name;
+	}
+	
+	
+	
+	//회원가입
 	public int saveMember(Member_dto dto) {
 		int result = 0;
 		String query = "insert into h02_member\r\n" + 
