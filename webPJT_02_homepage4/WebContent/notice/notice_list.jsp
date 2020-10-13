@@ -14,7 +14,6 @@
 		search = "";
 	}
 	ArrayList<Notice_dto> arr = dao.getNoticeList(select, search);
-	
 %>    
 <%@ include file="/common/common_subpage_head.jsp"%>	
 <script type="text/javascript">
@@ -106,7 +105,9 @@
 				<a href="">5</a>
 				<a href=""><i class="fa fa-angle-right"></i></a>
 				<a href=""><i class="fa fa-angle-double-right"></i></a>
+<% 				if(session_level.equals("top")){	%>				
 				<a href="notice_write.jsp" class="write">글쓰기</a>
+<%				}									%>				
 			</div>
 		</div>	
 <%@ include file="/common/common_subpage_bottom.jsp" %>		

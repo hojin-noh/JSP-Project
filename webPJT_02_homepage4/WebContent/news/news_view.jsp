@@ -83,8 +83,10 @@
 				</tbody>
 			</table>
 			<div class="buttonGroup">
+		<%		if(session_level.equals("top")){ %>
 				<a href="javascript:goDelete()" class="butt">Delete</a>
 				<a href="javascript:goUpdate()" class="butt">Update</a>
+		<%										} %>
 				<a href="news_list.jsp" class="butt">List</a>
 			</div>	
 		</div>	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dao.*,dto.*,java.util.*" %>
+<%@ include file="/common/session_manager_check.jsp" %>
 <%@ include file="/common/common_subpage_head.jsp" %>
 <%
 	Notice_dao dao = new Notice_dao();
@@ -70,7 +71,9 @@
 					</tr>	
 					<tr>
 						<th>Writer</th>
-						<td><input name="t_reg_name" type="text" class="input100"></td>
+						<td><%=session_name %>
+							<input name="t_reg_name" value="<%=session_name %>" type="text" class="input100">
+						</td>
 						<th>RegDate</th>
 						<td><input name="t_reg_date" type="date" class="input130"></td>
 					</tr>	

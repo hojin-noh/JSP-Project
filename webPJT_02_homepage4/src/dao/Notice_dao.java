@@ -19,7 +19,7 @@ public class Notice_dao {
 	PreparedStatement  ps	  = null;
 	ResultSet		   rs 	  = null;
 	
-	String pageType = "";
+	String pageType = "notice";
 	
 	public void DefinitionPageType(String pageType){
 		this.pageType = pageType;
@@ -30,7 +30,7 @@ public class Notice_dao {
 	public int deleteNotice(String no){
 		int result = 0;
 		String query = "delete from h02_"+pageType+"\r\n" + 
-				"where no = '"+no+"";
+				"where no = '"+no+"'";
 		
 		try {
 			connection = common.getConnection();

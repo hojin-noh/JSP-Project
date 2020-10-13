@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/session_manager_check.jsp" %>
+<%@ include file="/common/common_subpage_head.jsp"%>
 <%@ page import="common.*" %>
 <%
 	common common = new common();
 %>
-<%@ include file="/common/common_subpage_head.jsp"%>
+
+
 <script>
 	function goSave(){
 		if(noti.t_title.value==""){
@@ -72,7 +75,9 @@
 					</tr>	
 					<tr>
 						<th>Writer</th>
-						<td><input type="text" name="t_reg_name" class="input100"></td>
+						<td><%=session_name %>
+							<input type="hidden" name="t_reg_name" value="<%=session_name%>" class="input100">
+						</td>
 						<th>RegDate</th>
 						<td><input type="date" name="t_reg_date" value="<%=common.getToday() %>" class="input130"></td>
 					</tr>	

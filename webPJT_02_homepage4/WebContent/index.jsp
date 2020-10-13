@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%
 	String session_name = (String)session.getAttribute("session_name");
-	//out.print(" name : " + session_name);
 %>    
 
 <html>
@@ -87,7 +86,7 @@
 <%											} %>					
 					<li><a href=""><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
 <%					if(session_name != null){	 %>						
-					<li><a href=""><%=session_name%>님 Home</a></li>
+					<li><a href=""><%=session_name%>님 </a></li>
 <%											}	 %>	
 				</ul>
 			</div>	

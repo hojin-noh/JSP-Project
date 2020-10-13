@@ -108,7 +108,9 @@
 				<a href="">5</a>
 				<a href=""><i class="fa fa-angle-right"></i></a>
 				<a href=""><i class="fa fa-angle-double-right"></i></a>
+			<% if(session_level.equals("top")){ %>	
 				<a href="news_write.jsp" class="write">글쓰기</a>
+			<% } %>
 			</div>
 		</div>	
 	<%@ include file="/common/common_subpage_bottom.jsp" %>

@@ -8,7 +8,6 @@
 	Notice_dto dto = dao.getNoticeView(no);
 	
 %>    
-
 <%@ include file="/common/common_subpage_head.jsp"%>
 
 <script type="text/javascript">
@@ -83,8 +82,10 @@
 				</tbody>
 			</table>
 			<div class="buttonGroup">
+<%				if(session_level.equals("top")){ %>				
 				<a href="javascript:goDelete()" class="butt">Delete</a>
 				<a href="javascript:goUpdateForm()" class="butt">Update</a>
+<%					}	 %>
 				<a href="notice_list.jsp" class="butt">List</a>
 			</div>	
 		</div>	

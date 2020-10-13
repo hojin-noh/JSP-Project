@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/session_manager_check.jsp" %>
 <%@ page import="dao.*,dto.*" %>
 <%
 	Notice_dao dao = new Notice_dao();
@@ -9,6 +10,10 @@
 <%@ include file="/common/common_subpage_head.jsp"%>
 <script type="text/javascript">
 		function goUpdate(){
+			if(!checkEmpty(noti.t_title, " 제목 입력~~~~~")) return;
+			if(!checkEmpty(noti.t_content, " 내용 입력~~~~~")) return;
+			if(!checkEmpty(noti.t_reg_date, " 수정날짜 입력~~~~~")) return;
+			
 			noti.method="post";
 			noti.action="db_notice.jsp";
 			noti.submit();
@@ -61,7 +66,9 @@
 					</tr>	
 					<tr>
 						<th>Writer</th>
-						<td><input type="text" name="t_reg_name" value="<%=dto.getReg_name() %>" class="input100"></td>
+						<td><%=session_name %>
+							<input type="text" name="t_reg_name" value="<%=session_name %>" class="input100">
+						</td>
 						<th>RegDate</th>
 						<td><input type="date" name="t_reg_date" value="<%=dto.getReg_date() %>" class="input130"></td>
 					</tr>	
