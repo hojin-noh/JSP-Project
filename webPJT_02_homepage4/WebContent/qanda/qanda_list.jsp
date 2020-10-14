@@ -3,7 +3,7 @@
 <%@ page import="dao.*,dto.*,java.util.*,common.*" %>
 <%
 	request.setCharacterEncoding("utf-8");
-	Notice_dao dao = new Notice_dao();
+	Qanda_dao dao = new Qanda_dao();
 	
 	String pageType = "news";
 	dao.DefinitionPageType(pageType);
@@ -17,7 +17,7 @@
 		search = "";
 	}
 	
-	ArrayList<Notice_dto> arr = dao.getNoticeList(select, search);
+	ArrayList<Qanda_dto> arr = dao.getQandaList(select, search);
 
 	//*************page 시작**************/
 	int	list_setup_count = 3;			// 한 페이지에 출력될 List 수 
@@ -92,8 +92,8 @@
 			<P>NOTICE & NEWS</P>
 			<ul>
 				<li><a href="/notice/notice_list.jsp"> NOTICE</a></li>
-				<li><a href="/news/news_list.jsp"><span class="fnt"><i class="fas fa-apple-alt"></i></span>NEWS</a></li>
-				<li><a href="/qanda/qanda_list.jsp">Q & A</a></li>
+				<li><a href="/news/news_list.jsp">NEWS</a></li>
+				<li><a href="/qanda/qanda_list.jsp"><span class="fnt"><i class="fas fa-apple-alt"></i></span>Q & A</a></li>
 				<li><a href="/freeboard/freeboard_list.jsp">FREE BOARD</a></li>
 				<li><a href="">ETC</a></li>
 			</ul>
@@ -101,7 +101,7 @@
 
 		<div id="b_right">
 			<p class="n_title">
-				NEWS
+				QUESTION & ANSWER
 			</p>
 	<form name="news">
 			<p class="select_box">
@@ -115,8 +115,9 @@
 	</form>		
 			<table class="boardList">
 				<colgroup>
-					<col width="5%">
-					<col width="60%">
+					<col width="10%">
+					<col width="50%">
+					<col width="10%">
 					<col width="10%">
 					<col width="14%">
 					<col width="6%">
@@ -125,6 +126,7 @@
 					<tr>
 						<th>No</th>
 						<th>Title</th>
+						<th>Answer</th>
 						<th>Reg Name</th>
 						<th>Reg Date</th>
 						<th>Hit</th>
@@ -143,6 +145,7 @@
 					<tr>
 						<td><a href="javascript:goView('<%=arr.get(k).getNo() %>')"><%=arr.get(k).getNo() %></a></td>
 						<td class="t_center"><a href="javascript:goView('<%=arr.get(k).getNo() %>')"><%=arr.get(k).getTitle()%> </a></td>
+						<td>dd</td>
 						<td><%=arr.get(k).getReg_name() %></td>
 						<td><%=arr.get(k).getReg_date() %></td>
 						<td><%=arr.get(k).getHit() %></td>

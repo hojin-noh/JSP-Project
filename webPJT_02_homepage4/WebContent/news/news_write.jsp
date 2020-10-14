@@ -72,7 +72,7 @@
 					<tr>
 						<th>Writer</th>
 						<td><%=session_name %>
-							<input name="t_reg_name" value="<%=session_name %>" type="text" class="input100">
+							<input name="t_reg_name" value="<%=session_name %>" type="hidden" class="input100">
 						</td>
 						<th>RegDate</th>
 						<td><input name="t_reg_date" type="date" class="input130"></td>
