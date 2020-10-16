@@ -5,9 +5,6 @@
 	request.setCharacterEncoding("utf-8");
 	Qanda_dao dao = new Qanda_dao();
 	
-	String pageType = "news";
-	dao.DefinitionPageType(pageType);
-	
 	String select = request.getParameter("t_select");
 	String search = request.getParameter("t_search");
 	
@@ -64,23 +61,23 @@
 
 <script type="text/javascript">
 	function goSearch(){
-		news.method="post";
-		news.action="news_list.jsp";
-		news.submit();
+		qna.method="post";
+		qna.action="qanda_list.jsp";
+		qna.submit();
 	}
 	
 	function goView(num){
-		notiView.t_no.value	= num;
-		notiView.method		= "post";
-		notiView.action		= "news_view.jsp";
-		notiView.submit();
+		qnaView.t_no.value	= num;
+		qnaView.method		= "post";
+		qnaView.action		= "qanda_view.jsp";
+		qnaView.submit();
 		
 	}
 	
 	function goPage(pageNumber){
 		pageForm.r_page.value	=	pageNumber;
 		pageForm.method			=	"post";
-		pageForm.action			=	"news_list.jsp";
+		pageForm.action			=	"qanda_list.jsp";
 		pageForm.submit();
 		
 	}
@@ -103,7 +100,8 @@
 			<p class="n_title">
 				QUESTION & ANSWER
 			</p>
-	<form name="news">
+			<p class="leftBox" >총 게시글 : <%=arr.size() %> 건</p>
+	<form name="qna">
 			<p class="select_box">
 				<select name="t_select" class="sel_box">
 					<option value="title" <%if(select.equals("title")) out.print("selected"); %>>Title</option>
@@ -133,7 +131,7 @@
 					</tr>
 				</thead>
 				
-				<form name="notiView">
+				<form name="qnaView">
 					<input type="hidden" name="t_no" >
 				</form>
 				
@@ -145,9 +143,13 @@
 					<tr>
 						<td><a href="javascript:goView('<%=arr.get(k).getNo() %>')"><%=arr.get(k).getNo() %></a></td>
 						<td class="t_center"><a href="javascript:goView('<%=arr.get(k).getNo() %>')"><%=arr.get(k).getTitle()%> </a></td>
-						<td>dd</td>
-						<td><%=arr.get(k).getReg_name() %></td>
-						<td><%=arr.get(k).getReg_date() %></td>
+						<td>
+						<% if(arr.get(k).getAnswer() != null){ %>
+							답변완료
+						<% } %>
+						</td>
+						<td><%=arr.get(k).getQ_reg_name() %></td>
+						<td><%=arr.get(k).getQ_reg_date() %></td>
 						<td><%=arr.get(k).getHit() %></td>
 					</tr>
 <%
@@ -168,8 +170,8 @@
 <%
 	out.println(CommonUtil.pageListPost(current_page, total_page));	
 
-			 if(session_level.equals("top")){ %>	
-				<a href="news_write.jsp" class="write">글쓰기</a>
+			 if(!session_id.equals("")){ %>	
+				<a href="qanda_write.jsp" class="write">질문하기</a>
 			<% } %>
 			</div>
 		</div>	

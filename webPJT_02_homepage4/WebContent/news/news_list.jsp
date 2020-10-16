@@ -103,6 +103,7 @@
 			<p class="n_title">
 				NEWS
 			</p>
+			<p> 총 게시글 : <%=arr.size() %> 건</p>
 	<form name="news">
 			<p class="select_box">
 				<select name="t_select" class="sel_box">

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import common.DBConnectionOracle;
 import dto.News_dto;
+import dto.Qanda_dto;
 
 public class Qanda_dao {
 	
@@ -17,11 +18,12 @@ public class Qanda_dao {
 	ResultSet rs = null;
 	
 	// 목록 조회
-		public ArrayList<Qanda_dto> getQandaList(){
-			ArrayList<News_dto> arr = new ArrayList<News_dto>();
-			String query = " select q.no, q.title, q.answer, m.name, q.q_reg_date, q.hit\r\n" + 
-							" from h02_qna q, h02_member m\r\n" + 
-							" where q.q_reg_id = m.id";
+		public ArrayList<Qanda_dto> getQandaList(String select, String search){
+			ArrayList<Qanda_dto> arr = new ArrayList<Qanda_dto>();
+			String query = " select q.no, q.title, q.answer, m.name, to_char(q.q_reg_date,'yyyy-MM-dd'), q.hit\r\n" + 
+							" from h02_qna q, h02_member m \r\n" + 
+							" where q.q_reg_id = m.id" + 
+							" and q."+select+" like '%"+search+"%'";
 			
 			try {
 				connection = common.getConnection();
@@ -32,25 +34,25 @@ public class Qanda_dao {
 				while(rs.next()) {
 					String no = rs.getString(1);
 					String title = rs.getString(2);
-					String reg_name = rs.getString(3);
-					String reg_date = rs.getString(4);
-					int hit = rs.getInt(5);
+					String answer = rs.getString(3);
+					String name = rs.getString(4);
+					String reg_date = rs.getString(5);
+					int hit = rs.getInt(6);
 					
-					News_dto dto = new News_dto(no, title, "", reg_name, reg_date, hit);
+					Qanda_dto dto = new Qanda_dto(no, title, answer, name, reg_date, hit);
 					arr.add(dto);
 					
 				}
 				
 				
 			}catch(SQLException se) {
-				System.out.println("getNewsView() query 오류" + query);
+				System.out.println("getQandaList() query 오류" + query);
 			}catch(Exception e) {
-				System.out.println("getNewsView() 오류");
+				System.out.println("getQandaList() 오류");
 			}finally {
 				
 			}
-			
-			
+					
 			return arr;
 		}
 		
