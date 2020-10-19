@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import common.DBConnectionOracle;
-import dto.News_dto;
+import dto.Notice_dto;
 import dto.Qanda_dto;
 
 public class Qanda_dao {
@@ -17,14 +18,86 @@ public class Qanda_dao {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
+	// 상세조회
+	public Qanda_dto getQandaView(String no){
+		Qanda_dto dto = null;
+		String query = " select a.no, a.title, a.content, a.q_reg_id, b.name, to_char(a.q_reg_date,'yyyy-MM-dd'), \r\n" + 
+						" a.answer, a.a_reg_id, c.name, to_char(a.a_reg_date,'yyyy-MM-dd'), a.hit\r\n" + 
+						" from h02_qna a, h02_member b, h02_member c\r\n" + 
+						" where a.q_reg_id = b.id\r\n" + 
+						" and a.a_reg_id = c.id(+)\r\n" + 
+						" and a.no = '"+no+"'";
+
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			rs = ps.executeQuery();
+		
+		if(rs.next()){
+			
+			String No 			= rs.getString(1);
+			String title 		= rs.getString(2);
+			String content	 	= rs.getString(3);
+			String q_reg_id	 	= rs.getString(4);
+			String q_name 		= rs.getString(5);
+			String q_reg_date 	= rs.getString(6);
+			String a_answer 	= rs.getString(7);
+			String a_reg_id 	= rs.getString(8);
+			String a_name 		= rs.getString(9);
+			String a_reg_date 	= rs.getString(10);
+			int hit 			= rs.getInt(11);
+			
+			dto = new Qanda_dto(no, title, content, a_answer, q_reg_id, q_name, q_reg_date, a_reg_id , a_name, a_reg_date, hit);
+		}	
+			
+		
+			
+		}catch(SQLException se) {
+			System.out.println(" getQandaView() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" getQandaView() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return dto;
+	}
+	
+	
+	// 질문 등록
+	public int saveQuestion(Qanda_dto dto) {
+		int result = 0;
+		String query = " insert into h02_qna\r\n" + 
+						" (no, title, content, q_reg_id, q_reg_date)\r\n" + 
+						" values('"+dto.getNo()+"','"+dto.getTitle()+"', '"+dto.getContent()+"', '"+dto.getQ_reg_id()+"','"+dto.getQ_reg_date()+"')";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			result = ps.executeUpdate();
+		
+			
+		}catch(SQLException se) {
+			System.out.println(" SaveQuestion() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" SaveQuestion() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return result;
+	}
+	
+	
 	// 목록 조회
 		public ArrayList<Qanda_dto> getQandaList(String select, String search){
 			ArrayList<Qanda_dto> arr = new ArrayList<Qanda_dto>();
 			String query = " select q.no, q.title, q.answer, m.name, to_char(q.q_reg_date,'yyyy-MM-dd'), q.hit\r\n" + 
-							" from h02_qna q, h02_member m \r\n" + 
-							" where q.q_reg_id = m.id" + 
-							" and q."+select+" like '%"+search+"%'";
-			
+							" from h02_qna q, h02_member m\r\n" + 
+							" where q.q_reg_id = m.id\r\n" + 
+							" and q."+select+" like '%"+search+"%'"+
+							" order by q.no desc";
+										
 			try {
 				connection = common.getConnection();
 				ps = connection.prepareStatement(query);
@@ -55,5 +128,62 @@ public class Qanda_dao {
 					
 			return arr;
 		}
+		// 번호 생성
+				public String getQandaNo() {
+					String maxNo = "";
+					String query = " select max(no) from h02_qna ";
+					
+					try {
+						connection = common.getConnection();
+						ps = connection.prepareStatement(query);
+						rs = ps.executeQuery();
+						
+						if(rs.next()) {
+							maxNo = rs.getString(1);
+						}
+						if(maxNo == "null") {
+							maxNo = "Q001";
+							
+						}else {
+							String n = maxNo.substring(1);
+							int i = Integer.parseInt(n);
+							i++;
+							DecimalFormat df = new DecimalFormat("000");
+							String newNo = df.format((double)i);
+							maxNo = "Q"+ newNo;
+						}
+						
+					}catch(SQLException se) {
+						System.out.println(" getQandaNo() query 오류 " + query);
+					}catch(Exception e) {
+						System.out.println(" getQandaNo() 오류 ");
+					}finally {
+						common.close(connection, ps,rs);
+					}
+					
+					
+					return maxNo;
+				}
 		
+				
+				//조회수 증가
+				public void hitCount(String no) {
+					String query = "update h02_qna\r\n" + 
+									" set hit = hit + 1\r\n" + 
+									" where no = '"+no+"'";
+					
+					try {
+						connection = common.getConnection();
+						ps = connection.prepareStatement(query);
+						ps.executeUpdate(); 
+						
+					}catch(SQLException se) {
+						System.out.println(" hitCount() query 오류 " + query);
+					}catch(Exception e) {
+						System.out.println(" hitCount() 오류 ");
+					}finally {
+						common.close(connection, ps);
+					}
+					
+				}			
 }

@@ -236,7 +236,13 @@
 		width:600px;
 		height:250px;
 		border:0;
-	}	
+	}
+	
+	.boardForm .textArea_H120_noBorder{
+		width:600px;
+		height:120px;
+		border:0;
+	}		
 	
 	.paging{
 		margin-top:20px;
