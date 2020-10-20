@@ -18,6 +18,96 @@ public class Qanda_dao {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
+	//질문 수정
+	public int updateQuestion(Qanda_dto dto){
+		int result = 0;
+		String query = " update h02_qna\r\n" + 
+				" set title = '"+dto.getTitle()+"',\r\n" + 
+				"    content = '"+dto.getContent()+"',\r\n" + 
+				"    q_reg_date = '"+dto.getQ_reg_date()+"'\r\n" + 
+				" where no = '"+dto.getNo()+"' ";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			result = ps.executeUpdate();
+		
+			
+		}catch(SQLException se) {
+			System.out.println(" updateQuestion() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" updateQuestion() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return result;
+	}
+	
+	
+	// 질문 상세 보여주기
+	public Qanda_dto getQuesionInfo(String no){
+		Qanda_dto dto = null;
+		String query = " select a.no, a.title, a.content, a.q_reg_id, b.name, to_char(a.q_reg_date,'yyyy-MM-dd') \r\n" + 
+						" from h02_qna a, h02_member b\r\n" + 
+						" where a.q_reg_id = b.id \r\n" + 
+						" and a.no = '"+no+"'";
+
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			rs = ps.executeQuery();
+		
+		if(rs.next()){
+			
+			String No 			= rs.getString(1);
+			String title 		= rs.getString(2);
+			String content	 	= rs.getString(3);
+			String q_reg_id	 	= rs.getString(4);
+			String q_name 		= rs.getString(5);
+			String q_reg_date 	= rs.getString(6);
+			
+			dto = new Qanda_dto(No, title, content, q_reg_id, q_name, q_reg_date);
+		}	
+			
+		}catch(SQLException se) {
+			System.out.println(" getQuesionInfo() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" getQuesionInfo() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return dto;		
+	}
+	
+	
+	
+	//질문 삭제
+	public int deleteQuestion(String no){
+		int result = 0;
+		String query = " delete from h02_qna" + 
+						" where no = '"+no+"' ";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			result = ps.executeUpdate(); 
+			
+		}catch(SQLException se) {
+			System.out.println(" deleteQuestion() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" deleteQuestion() 오류 ");
+		}finally {
+			common.close(connection, ps);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
 	// 상세조회
 	public Qanda_dto getQandaView(String no){
 		Qanda_dto dto = null;
@@ -47,7 +137,7 @@ public class Qanda_dao {
 			String a_reg_date 	= rs.getString(10);
 			int hit 			= rs.getInt(11);
 			
-			dto = new Qanda_dto(no, title, content, a_answer, q_reg_id, q_name, q_reg_date, a_reg_id , a_name, a_reg_date, hit);
+			dto = new Qanda_dto(No, title, content, a_answer, q_reg_id, q_name, q_reg_date, a_reg_id , a_name, a_reg_date, hit);
 		}	
 			
 		

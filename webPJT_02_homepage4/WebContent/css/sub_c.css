@@ -232,6 +232,10 @@
 		width:600px;
 		height:250px;
 	}	
+	.boardForm .textArea_H120{
+		width:600px;
+		height:120px;
+	}
 	.boardForm .textArea_H250_noBorder{
 		width:600px;
 		height:250px;
@@ -269,7 +273,6 @@
 		
 	}
 	.paging i{
-		color:gray;
 	}	
 
 	.paging a:hover, .buttonGroup a:hover{

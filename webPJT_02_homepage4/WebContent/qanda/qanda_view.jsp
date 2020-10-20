@@ -11,23 +11,39 @@
 <%@ include file="/common/common_subpage_head.jsp"%>
 
 <script type="text/javascript">
-		function goUpdateForm(){
-			noti.method="post";
-			noti.action="notice_update.jsp";
-			noti.submit();
-		}
-		function goDelete(){
-			if(confirm(" 정말 삭제 하시겠습니까? ")){
-			noti.method="post";
-			noti.action="db_notice.jsp";
-			noti.submit();
+		function goQueDelete(){
+			if(confirm(" 질문을 삭제 하시겠습니까? ")){
+				qna.method = "post";
+				qna.action = "db_question_delete.jsp";
+				qna.submit();
 			}
+		}
+		function goQueUpdateForm(){
+				qna.method = "post";
+				qna.action = "qanda_update.jsp";
+				qna.submit();
+		}
+		function goAnswer(){
+				qna.method = "post";
+				qna.action = "answer_write.jsp";
+				qna.submit();
+		}
+		function goAnsDelete(){
+			if(confirm(" 답변을 삭제 하시겠습니까? ")){
+				qna.method = "post";
+				qna.action = "db_answer_delete.jsp";
+				qna.submit();
+			}
+		}
+		function goAnsUpdateForm(){
+				qna.method = "post";
+				qna.action = "db_answer_update.jsp";
+				qna.submit();
 		}
 		
 </script>	
-		<form name="noti">
+		<form name="qna">
 			<input type="hidden" name="t_no" value="<%=no%>">
-			<input type="hidden" name="t_work_gubun" value="delete">
 		</form>
 		<div id="b_left">
 			<P>NOTICE & NEWS</P>
@@ -87,11 +103,38 @@
 				</tbody>
 			</table>
 			<div class="buttonGroup">
-<%				if(session_level.equals("top")){ %>				
-				<a href="javascript:goDelete()" class="butt">Delete</a>
-				<a href="javascript:goUpdateForm()" class="butt">Update</a>
-<%					}	 %>
-				<a href="notice_list.jsp" class="butt">List</a>
+<%					if(dto.getAnswer() == null){	//답변이 안 달려 있고 등록id가 로그인id와 같거나 관리자이면 수정, 삭제 가능함
+	//				if(dto.getAnswer() == null && dto.getQ_reg_id().equals(session_id)){
+						if(dto.getQ_reg_id().equals(session_id) || session_level.equals("top")){ 						
+							//if문을 둘로 쓸때, 위는 하나로 만들때
+%>
+
+				<a href="javascript:goQueDelete()" class="butt">QueDelete</a>
+				<a href="javascript:goQueUpdateForm()" class="butt">QueUpdate</a>
+
+
+<%						}
+						if(session_level.equals("top")){
+							//답변이 없고 관리자 이면 답변달기 창으로					
+%>					
+						<a href="javascript:goAnswer()" class="butt">Answer</a>
+													
+<%						}
+						
+					} 
+%>			
+			
+<%				if(dto.getAnswer() != null){ //답변이 달려있고
+					if(session_level.equals("top")){   //관리자이면 답변의 수정, 삭제 가능
+%>				
+				<a href="javascript:goAnsDelete()" class="butt">AnsDelete</a>
+				<a href="javascript:goAnsUpdateForm()" class="butt">AnsUpdate</a>
+<%				
+						}
+					} %>
+					
+				<a href="qanda_list.jsp" class="butt">List</a>
+
 			</div>	
 		</div>	
 <%@ include file="/common/common_subpage_bottom.jsp" %>				
