@@ -18,6 +18,61 @@ public class Qanda_dao {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
+	//답변 삭제
+	public int deleteAnswer(String no){
+		int result = 0;
+		String query = " update h02_qna\r\n" + 
+				" set answer = '',\r\n" + 
+				"    a_reg_id = '',\r\n" + 
+				"    a_reg_date = ''\r\n" + 
+				" where no = '"+no+"' ";
+		
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			result = ps.executeUpdate();
+		
+			
+		}catch(SQLException se) {
+			System.out.println(" deleteAnswer() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" deleteAnswer() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	//질문 답변 등록 & 수정
+	public int saveAnswer(String no, String answer, String reg_id, String reg_date){
+	int result = 0;
+	String query = " update h02_qna\r\n" + 
+			" set answer = '"+answer+"',\r\n" + 
+			"    a_reg_id = '"+reg_id+"',\r\n" + 
+			"    a_reg_date = '"+reg_date+"'\r\n" + 
+			" where no = '"+no+"' ";
+	
+	try {
+		connection = common.getConnection();
+		ps = connection.prepareStatement(query);
+		result = ps.executeUpdate();
+	
+		
+	}catch(SQLException se) {
+		System.out.println(" saveAnswer() query 오류 " + query);
+	}catch(Exception e) {
+		System.out.println(" saveAnswer() 오류 ");
+	}finally {
+		common.close(connection, ps, rs);
+	}
+	
+	return result;
+}
+	
+	
 	//질문 수정
 	public int updateQuestion(Qanda_dto dto){
 		int result = 0;

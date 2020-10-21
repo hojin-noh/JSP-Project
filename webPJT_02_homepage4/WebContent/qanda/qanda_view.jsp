@@ -9,6 +9,7 @@
 	
 %>    
 <%@ include file="/common/common_subpage_head.jsp"%>
+<%@ include file="/common/session_member_check.jsp" %>
 
 <script type="text/javascript">
 		function goQueDelete(){
@@ -37,7 +38,7 @@
 		}
 		function goAnsUpdateForm(){
 				qna.method = "post";
-				qna.action = "db_answer_update.jsp";
+				qna.action = "answer_update.jsp";
 				qna.submit();
 		}
 		

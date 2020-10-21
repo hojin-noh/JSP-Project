@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/common/session_manager_check.jsp" %>
 <%@ page import="dao.*, dto.*,common.*" %>    
 <%
 	Qanda_dao dao = new Qanda_dao();
@@ -10,8 +9,9 @@
 %>    
 <%@ include file="/common/common_subpage_head.jsp"%>
 
+
 <script type="text/javascript">
-		function goSaveAnswer(){
+		function goUpdateAnswer(){
 				qna.method = "post";
 				qna.action = "db_answer_save.jsp";
 				qna.submit();
@@ -35,7 +35,7 @@
 		<form name="qna">
 			<input type="hidden" name="t_no" value="<%=no%>">
 			<input type="hidden" name="t_reg_id" value="<%=session_id%>">
-			<input type="hidden" name="t_work_gubun" value="등록">
+			<input type="hidden" name="t_work_gubun" value="수정">
 			<table class="boardForm">
 				<colgroup>
 					<col width="15%">
@@ -65,7 +65,7 @@
 					<tr>
 						<th>Answer</th>
 						<td colspan="3">
-							<textarea name="t_answer" class="textArea_H120" ></textarea>
+							<textarea name="t_answer" class="textArea_H120" ><%=dto.getAnswer() %></textarea>
 						</td>
 					</tr>
 					<tr>
@@ -80,7 +80,7 @@
 			</table>
 		</form>	
 			<div class="buttonGroup">
-				<a href="javascript:goSaveAnswer()" class="butt">AnsSave</a>
+				<a href="javascript:goUpdateAnswer()" class="butt">AnsUpdate</a>
 				<a href="qanda_list.jsp" class="butt">List</a>
 
 			</div>	

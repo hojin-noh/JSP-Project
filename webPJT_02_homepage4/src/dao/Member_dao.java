@@ -15,6 +15,35 @@ public class Member_dao {
 	PreparedStatement  ps	  = null;
 	ResultSet		   rs 	  = null;
 	
+	
+	//id 중복 검사
+		public int idCheckCount(String id) {
+			int count = 0;
+			String query = "select count(*)\r\n" + 
+							" from h02_member\r\n" + 
+							" where id = '"+id+"'";
+			
+			try {
+				connection = common.getConnection();
+				ps = connection.prepareStatement(query);
+				rs = ps.executeQuery();
+				
+			if(rs.next())count = rs.getInt(1);
+				
+			}catch(SQLException se) {
+				System.out.println(" idCheckCount() query 오류 " + query);
+			}catch(Exception e) {
+				System.out.println(" idCheckCount() 오류 ");
+			}finally {
+				common.close(connection, ps, rs);
+			}
+			
+			return count;
+		}
+	
+	
+	
+	
 	//로그인 시 id 랑 비밀번호 조회
 	public String getLoginName(String id, String pw) {
 		String name = null;

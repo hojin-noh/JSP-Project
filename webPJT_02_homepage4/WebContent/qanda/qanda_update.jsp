@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/common_subpage_head.jsp"%>
+<%@ include file="/common/session_member_check.jsp" %>
 <%@ page import="dao.*, dto.*, common.*" %>
 <%
 	common common = new common();
