@@ -8,7 +8,12 @@
 	function goJoin(){
 		//var ttt = checkEmpty(mem.t_id, "ID 입력~~~~~");
 		//if(!ttt) return;
-		if(!checkEmpty(mem.t_id, "ID 입력~~~~~")) return;
+		if(!checkEmpty(mem.id_check_gubun, "ID 중복검사를 하시오. ")) return;
+		if(mem.id_check_gubun.value != mem.t_id.value){
+			alert(" 변경된 ID를 중복 검사 하시오. ");
+			return;
+		}
+		
 		if(!checkEmpty(mem.t_name, "성명 입력~~~~~")) return;
 		if(!checkEmpty(mem.t_pw, "비밀번호 입력~~~~~")) return;
 		if(!checkEmpty(mem.t_pw_confirm, "비밀번호 다시 입력~~~~~")) return;
@@ -69,8 +74,41 @@
 		mem.action="db_member_join.jsp";
 		mem.submit();
 	}
+	function checkId(){
+		if(!checkEmpty(mem.t_id, "ID 입력후 중복검사 하세요. ")) return;
+		var id = mem.t_id.value;
+		window.open("member_check_id.jsp?t_id="+id,"ID 중복 검사","width=400, height=300");
+//		location.href="member_check_id.jsp?t_id="+id;
+		
+	}
 
-</script>	
+</script>
+<script type="text/javascript">
+//<![CDATA[
+	$(document).ready(function(){
+		$("#idCheck").click(function(){
+			var id = mem.t_id.value;
+			if(id == ""){
+				alert(" ID 입력 후 검사! ");
+				return;
+			}
+			
+			$.ajax({
+				type:"post",
+				url:"member_check_id_ajax.jsp",
+				data:"t_id="+id,
+				dataType:"text",
+				error:function(){
+					alert(" 통신실패 ");
+				},
+				success:function(data){
+					alert(" 넘어온 값 : "+data);
+				}
+			});
+			
+		});	
+	});
+</script>
 		<div id="b_left">
 			<P>MEMBER</P>
 			<ul>
@@ -96,11 +134,15 @@
 				  <td>
 					<input name="t_id" type="text" size="10" id="id" title="id입력하세요">
 					<input type="button" onclick="checkId()" value="ID중복검사" class="checkB">
+					<input type="text" name="id_check_gubun">
+					
+					<input type="button" id="idCheck" value="ID중복검사ajax" class="checkB">
+					
 				  </td>
 				</tr>
 				<tr>
 				  <th><label for="nana">성 명</label></th>
-				  <td><input name="t_name" type="text" size="8" id="nana"></td>
+				  <td><input name="t_name"  type="text" size="8" id="nana"></td>
 				</tr>
 				<tr>
 				  <th>비밀번호</th>
