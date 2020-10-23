@@ -8,6 +8,7 @@
 	function goJoin(){
 		//var ttt = checkEmpty(mem.t_id, "ID 입력~~~~~");
 		//if(!ttt) return;
+		if(!checkEmpty(mem.id_check_gubun, "ID를 입력하시오. ")) return;
 		if(!checkEmpty(mem.id_check_gubun, "ID 중복검사를 하시오. ")) return;
 		if(mem.id_check_gubun.value != mem.t_id.value){
 			alert(" 변경된 ID를 중복 검사 하시오. ");
@@ -102,7 +103,17 @@
 					alert(" 통신실패 ");
 				},
 				success:function(data){
-					alert(" 넘어온 값 : "+data);
+					//alert(" 넘어온 값 : ==="+data+"====");
+					$(".id_check_span").html(data);
+					if($.trim(data) == "사용가능"){
+						$(".id_check_span").css("color","blue");
+						mem.id_check_gubun.value = id;
+						mem.t_name.focus();
+					} else{
+						$(".id_check_span").css("color","red");						
+						mem.id_check_gubun.value = "";
+						mem.t_id.focus();
+					}
 				}
 			});
 			
@@ -133,10 +144,14 @@
 				  <th><label for="id">I D</label></th>
 				  <td>
 					<input name="t_id" type="text" size="10" id="id" title="id입력하세요">
+<!--  				
 					<input type="button" onclick="checkId()" value="ID중복검사" class="checkB">
-					<input type="text" name="id_check_gubun">
+					중복 체크 팝업창
+--> 
+					<input type="hidden" name="id_check_gubun">
 					
 					<input type="button" id="idCheck" value="ID중복검사ajax" class="checkB">
+					<span class="id_check_span"></span>
 					
 				  </td>
 				</tr>

@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class common {
+	public static String file_dir_notice = "C:/Users/JSLHRD/git/JSP-Project/webPJT_02_homepage4/WebContent/file_room/notice/";
+	
 	//오늘날짜
 	public static String getToday() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
