@@ -29,7 +29,7 @@
 		String attach = mpr.getFilesystemName("t_attach");
 		if(attach != null){
 			String df = mpr.getParameter("t_ori_attach");
-			if(!df.equals("null")){
+			if(!df.equals("")){
 				File delFile = new File(file_dir, df);
 				delFile.delete();
 			}

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/session_manager_check.jsp" %>
-<%@ page import="dao.*,dto.*" %>
+<%@ page import="dao.*,dto.*,common.*" %>
 <%
 	Notice_dao dao = new Notice_dao();
 	String no = request.getParameter("t_no");
@@ -64,7 +64,7 @@
 							삭제<input type="checkbox" name="t_del_attach" value="<%=dto.getAttach() %>" ><br>
 						<%	} %>
 							<input type="file" name="t_attach" class="input600">
-							<input type="hidden" name="t_ori_attach" value="<%=dto.getAttach() %>">
+							<input type="hidden" name="t_ori_attach" value="<%=CommonUtil.checkNull(dto.getAttach()) %>">
 						</td>
 					</tr>	
 					<tr>
