@@ -68,7 +68,7 @@
 						<th>Attach</th>
 						<td colspan="3">
 						<% if(dto.getAttach() != null){ %>
-							<%=dto.getAttach() %>
+							<a href="/common/filedown.jsp?t_file=<%=dto.getAttach() %>&t_gubun=notice"><%=dto.getAttach() %></a>
 						<% } %>
 						</td>
 					</tr>	

@@ -15,7 +15,8 @@
 			if(!checkEmpty(noti.t_reg_date, " 수정날짜 입력~~~~~")) return;
 			
 			noti.method="post";
-			noti.action="db_notice.jsp";
+//			noti.action="db_notice.jsp";
+			noti.action="db_notice_update_file.jsp";
 			noti.submit();
 			
 		}
@@ -43,7 +44,7 @@
 					<col width="10%">
 					<col width="40%">
 				</colgroup>
-				<form name="noti" >
+				<form name="noti" enctype="multipart/form-data">
 					<input type = "hidden" name="t_work_gubun" value="update">
 					<input type = "hidden" name="t_no" value="<%=no%>">
 				<tbody>
@@ -59,9 +60,11 @@
 						<th>Attach</th>
 						<td colspan="3">
 						<% if(dto.getAttach() != null){ %>
-							<%=dto.getAttach() %> 삭제<input type="checkbox"><br>
+							<%=dto.getAttach() %> 
+							삭제<input type="checkbox" name="t_del_attach" value="<%=dto.getAttach() %>" ><br>
 						<%	} %>
 							<input type="file" name="t_attach" class="input600">
+							<input type="hidden" name="t_ori_attach" value="<%=dto.getAttach() %>">
 						</td>
 					</tr>	
 					<tr>
