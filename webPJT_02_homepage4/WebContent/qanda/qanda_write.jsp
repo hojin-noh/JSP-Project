@@ -31,7 +31,7 @@
 				<li><a href="/news/news_list.jsp">NEWS</a></li>
 				<li><a href="/qanda/qanda_list.jsp"><span class="fnt"><i class="fas fa-apple-alt"></i></span>Q & A</a></li>
 				<li><a href="/freeboard/freeboard_list.jsp">FREE BOARD</a></li>
-				<li><a href="">ETC</a></li>
+				<li><a href="/event/event_list.jsp">ETC</a></li>
 			</ul>
 		</div>
 		

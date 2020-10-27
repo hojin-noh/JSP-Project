@@ -19,9 +19,11 @@
 		
 		String del_attach = mpr.getParameter("t_del_attach");
 		String dbAttachName = "";
+		boolean delYN = true;
 		if(del_attach != null){
 			File delFile = new File(file_dir, del_attach);
 			delFile.delete();
+			delYN = false;
 		} else{
 			dbAttachName=mpr.getParameter("t_ori_attach");
 		}
@@ -29,23 +31,29 @@
 		String attach = mpr.getFilesystemName("t_attach");
 		if(attach != null){
 			String df = mpr.getParameter("t_ori_attach");
-			if(!df.equals("")){
+			if(!df.equals("") && delYN==true){
 				File delFile = new File(file_dir, df);
 				delFile.delete();
 			}
-					
 			File oldFile = new File(file_dir, attach);
 			File newFile = new File(file_dir, no + "-" + attach);		
 			oldFile.renameTo(newFile);
 			dbAttachName = newFile.getName();					
 		}
+		String msg="";
+		Notice_dto dto = new Notice_dto(no, title, content, dbAttachName, reg_name, reg_date, 0);
+		int result = dao.updateNotice(dto);
+		if(result == 1) msg=" 수정 되었습니다. ";
+		else msg=" 수정 실패~ ";
 %>
 
 
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<Script type="text/javascript">
+	alert("<%=msg%>");
+	location.href="notice_list.jsp";
+</Script>
 </head>
 <body>
 

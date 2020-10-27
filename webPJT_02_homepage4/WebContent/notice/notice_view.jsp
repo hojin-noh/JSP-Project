@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dao.*, dto.*" %>    
+<%@ page import="dao.*, dto.*,common.*" %>    
 <%
 	Notice_dao dao = new Notice_dao();
 	String no = request.getParameter("t_no");
@@ -19,7 +19,8 @@
 		function goDelete(){
 			if(confirm(" 정말 삭제 하시겠습니까? ")){
 			noti.method="post";
-			noti.action="db_notice.jsp";
+//			noti.action="db_notice.jsp";
+			noti.action="db_notice_delete_file.jsp";
 			noti.submit();
 			}
 		}
@@ -27,6 +28,7 @@
 </script>	
 		<form name="noti">
 			<input type="hidden" name="t_no" value="<%=no%>">
+			<input type="text" name="t_attach" value="<%=CommonUtil.checkNull(dto.getAttach())%>">
 			<input type="hidden" name="t_work_gubun" value="delete">
 		</form>
 		<div id="b_left">
@@ -36,7 +38,7 @@
 				<li><a href="/news/news_list.jsp">NEWS</a></li>
 				<li><a href="/qanda/qanda_list.jsp">Q & A</a></li>
 				<li><a href="/freeboard/freeboard_list.jsp">FREE BOARD</a></li>
-				<li><a href="">ETC</a></li>
+				<li><a href="/event/event_list.jsp">ETC</a></li>
 			</ul>
 		</div>
 		

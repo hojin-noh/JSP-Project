@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 public class CommonUtil {
-	public static String attach_dir_notice ="C:/Users/JSLHRD/Desktop/jsl43_teacher/eclipse_source/webPJT_00_homepage4/WebContent/file_room/notice/";
 
 	public static String getParaValue(HttpServletRequest request,String obj) {
 		String result= request.getParameter(obj);

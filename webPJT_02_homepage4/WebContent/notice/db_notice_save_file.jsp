@@ -26,11 +26,11 @@
 		oldFile.renameTo(newFile);
 		dbAttachName = newFile.getName();							//첨부파일 저장 폴더에서 이름이 N025-aaa.hwp로 올라가게 해줌.
 	}
-	
+
 	Notice_dto dto = new Notice_dto(no, title, content, dbAttachName, reg_name, reg_date, 0);
 	int result = dao.SaveNotice(dto);
-	String msg="";
-	if(result == 1) msg=" 등록되었습니다. ";
+	String msg = "";	
+	if(result == 1) msg=" 등록 되었습니다. ";
 	else msg=" 등록 실패~ ";
 
 

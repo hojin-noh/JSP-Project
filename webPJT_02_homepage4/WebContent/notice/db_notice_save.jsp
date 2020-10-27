@@ -15,8 +15,8 @@
 	Notice_dto dto = new Notice_dto(no, title, content, attach, reg_name, reg_date, 0);
 	int result = dao.SaveNotice(dto);
 	String msg="";
-	if(result == 1) msg=" 등록되었습니다. ";
-	else msg=" 등록 실패~ ";
+	if(result == 1) msg=" 수정되었습니다. ";
+	else msg=" 수정 실패~ ";
 %>
 
 <!DOCTYPE html>
