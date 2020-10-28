@@ -223,7 +223,11 @@
 	.boardForm .input130{
 		width:130px;
 		height:22px;
-	}	
+	}
+	.boardForm .input110{
+		width:130px;
+		height:18px;
+	}		
 	.boardForm .input600{
 		width:600px;
 		height:22px;
@@ -231,6 +235,10 @@
 	.boardForm .textArea_H250{
 		width:600px;
 		height:250px;
+	}	
+	.boardForm .textArea_H220{
+		width:600px;
+		height:220px;
 	}	
 	.boardForm .textArea_H120{
 		width:600px;
