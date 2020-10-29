@@ -17,7 +17,7 @@
 	ArrayList<Event_dto> arr = dao.getEventList(select, search);
 	
 	//*************page 시작**************/
-		int	list_setup_count = 10;			// 한 페이지에 출력될 List 수 
+		int	list_setup_count = 2;			// 한 페이지에 출력될 List 수 
 
 
 		String r_page = request.getParameter("r_page");
@@ -79,10 +79,13 @@
 		pageForm.action			=	"event_list.jsp";
 		pageForm.submit();
 	}
+	
+	
 </script>
 		<form name="pageForm">
-			<input type="hidden" name="r_page">
+			<input type="hidden" name="r_page" >
 		</form>
+		
 		<form name="notiView">
 			<input type="hidden" name="t_no">
 		</form>
@@ -116,8 +119,8 @@
 			<table class="boardList">
 				<colgroup>
 					<col width="8%">
-					<col width="40%">
-					<col width="20%">
+					<col width="30%">
+					<col width="30%">
 					<col width="10%">
 					<col width="14%">
 					<col width="6%">
@@ -160,21 +163,10 @@
 			
 			<div class="paging">
 
-<!-- 
-				<a href=""><i class="fa fa-angle-double-left"></i></a>
-				<a href=""><i class="fa fa-angle-left"></i></a>
-				<a href="" class="active">1</a>
-				<a href="">2</a>
-				<a href="">3</a>
-				<a href="">4</a>
-				<a href="">5</a>
-				<a href=""><i class="fa fa-angle-right"></i></a>
-				<a href=""><i class="fa fa-angle-double-right"></i></a> 
--->
 
 
 <%
-	out.println(CommonUtil.pageListPost(current_page, total_page));			
+		out.println(CommonUtil.pageListPost(current_page, total_page));
 
  				if(session_level.equals("top")){	%>				
 				<a href="event_write.jsp" class="write">글쓰기</a>

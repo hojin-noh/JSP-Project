@@ -148,7 +148,7 @@ public class Event_dao {
 	//목록 조회
 	public ArrayList<Event_dto> getEventList(String select, String search){
 		ArrayList<Event_dto> arr = new ArrayList<Event_dto>();
-		String query = "select no, title, to_char(s_date,'hh-MM-ss'), to_char(e_date,'hh-MM-ss'), reg_name, to_char(reg_date,'yyyy-MM-dd'), hit\r\n" + 
+		String query = "select no, title, to_char(s_date,'yyyy-MM-dd'), to_char(e_date,'yyyy-MM-dd'), reg_name, to_char(reg_date,'yyyy-MM-dd'), hit\r\n" + 
 						" from h02_"+pageType+"\r\n" + 
 						" where "+select+" like '%"+search+"%'\r\n" +
 						" order by no desc";

@@ -10,6 +10,9 @@
 
 <script>
 	function goSave(){
+		var s_date = noti.t_s_reg_date.value;
+		var e_date = noti.t_e_reg_date.value;
+		
 		if(noti.t_title.value==""){
 			alert(" 제목 입력! ");
 			noti.t_title.focus();
@@ -20,17 +23,24 @@
 			noti.t_content.focus();
 			return;
 		}
-		if(noti.t_s_reg_date.value==""){
-			alert(" 시작일 입력! ");
-			noti.t_s_reg_date.focus();
+		
+
+		if(s_date > e_date){
+			alert(" 시작날짜와 종료날짜 확인해주세요. ");
 			return;
+		}
+		
+		if(noti.t_s_reg_date.value==""){
+				alert(" 시작일 입력! ");
+				noti.t_s_reg_date.focus();
+				return;
 		}
 		if(noti.t_e_reg_date.value==""){
-			alert(" 종료일 입력! ");
-			noti.t_e_reg_date.focus();
-			return;
-		}
-	
+				alert(" 종료일 입력! ");
+				noti.t_e_reg_date.focus();
+				return;
+		}	
+				
 		
 		noti.method="post";
 		noti.action="db_event_save.jsp";
