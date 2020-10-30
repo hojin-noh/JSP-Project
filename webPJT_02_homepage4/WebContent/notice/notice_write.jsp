@@ -76,7 +76,7 @@
 //		noti.action="db_notice.jsp";
 		noti.action="db_notice_save_file.jsp"    
 	//위에 있는 거는 첨부파일을 위해서는 넘겨주는 정보가 바뀌어야 해서 jsp파일 속성을 맞춰서 만들어야 함
-		//noti.submit();
+		noti.submit();
 	}
 </script>	
 		<div id="b_left">

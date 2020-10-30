@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import=" dao.*, dto.*, java.util.* " %>
 <%
 	String session_name = (String)session.getAttribute("session_name");
+	Notice_dao dao = new Notice_dao();
+	ArrayList<Notice_dto> arr = dao.getIndexNotice();
 %>    
 
 <html>
@@ -199,37 +202,24 @@
 		<hr><br>
 		<div id="b_left">
 			<p class="left_top">
-				<img src="images/left_top.jpg"><a href="notice/notice_list.html"><img src="images/left_right.jpg"></a>
+				<img src="images/left_top.jpg"><a href="/notice/notice_list.jsp"><img src="images/left_right.jpg"></a>
 			</p>
 			<div class="left_middle">
+		<%for(int k = 0; k < arr.size(); k++){ %>
 				<ul>
-					<li class="noti_title"><a href="">7.Convert between color formats</a></li>
-					<li class="noti_date">20-07-14</li>
+					<li class="noti_title">
+						<a href="/notice/notice_view.jsp?t_no=<%=arr.get(k).getNo() %>">
+									<%=arr.get(k).getRownum() %>.
+							<%if(arr.get(k).getTitle().length() > 14){%>		
+									<%=arr.get(k).getTitle().substring(0,14)+"..."%>
+							<%		}else{			%>
+									<%=arr.get(k).getTitle()%>
+							<%		}				%>
+						</a>
+					</li>
+					<li class="noti_date"><%=arr.get(k).getReg_date() %></li>
 				</ul>
-				<ul>
-					<li class="noti_title"><a href="">6.회원운영정책 변경안내</a></li>
-					<li class="noti_date">20-07-14</li>
-				</ul>
-				<ul>
-					<li class="noti_title"><a href="">5.회원운영정책 변경안내</a></li>
-					<li class="noti_date">20-07-14</li>
-				</ul>
-				<ul>
-					<li class="noti_title"><a href="">4.회원운영정책 변경안내</a></li>
-					<li class="noti_date">20-07-14</li>
-				</ul>
-				<ul>
-					<li class="noti_title"><a href="">3.회원운영정책 변경안내</a></li>
-					<li class="noti_date">20-07-14</li>
-				</ul>
-				<ul>
-					<li class="noti_title"><a href="">2.회원운영정책 변경안내</a></li>
-					<li class="noti_date">20-07-14</li>
-				</ul>
-				<ul>
-					<li class="noti_title"><a href="">1.회원운영정책 변경안내</a></li>
-					<li class="noti_date">20-07-14</li>
-				</ul>
+		<%									 } %>
 			</div>
 		
 		</div>

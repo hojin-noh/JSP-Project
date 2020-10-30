@@ -26,6 +26,43 @@ public class Notice_dao {
 	}
 	
 	
+	//목록조회 index
+	public ArrayList<Notice_dto> getIndexNotice(){
+		ArrayList<Notice_dto> arr = new ArrayList<Notice_dto>();
+		String query = "select rownum, no, title, reg_date\r\n" + 
+					" from(\r\n" + 
+					"    select no, title, to_char(reg_date,'yy-MM-dd') as reg_date\r\n" + 
+					"    from h02_"+pageType+"\r\n" + 
+					"    order by no desc)\r\n" + 
+					" where rownum < 8";
+System.out.print(query);
+	try {
+		connection = common.getConnection();
+		ps = connection.prepareStatement(query);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			String rownum 	 = rs.getString(1);
+			String no 		 = rs.getString(2);
+			String title	 = rs.getString(3);
+			String reg_date  = rs.getString(4);
+			
+			Notice_dto dto = new Notice_dto(no, title, reg_date, rownum);
+			arr.add(dto);
+		}
+		
+	}catch(SQLException se) {
+		System.out.println(" getIndexNotice() query 오류 " + query);
+	}catch(Exception e) {
+		System.out.println(" getIndexNotice() 오류 ");
+	}finally {
+		common.close(connection, ps, rs);
+	}
+	
+	return arr;
+}
+	
+	
 	//삭제
 	public int deleteNotice(String no){
 		int result = 0;

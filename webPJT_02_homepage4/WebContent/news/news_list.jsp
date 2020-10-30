@@ -87,6 +87,8 @@
 </script>
 		<form name="pageForm">
 			<input type="hidden" name="r_page">
+			<input type="hidden" name="t_select" value="<%=select%>">
+			<input type="hidden" name="t_search" value="<%=search%>">
 		</form>
 		<div id="b_left">
 			<P>NOTICE & NEWS</P>
@@ -143,7 +145,14 @@
 %>
 					<tr>
 						<td><a href="javascript:goView('<%=arr.get(k).getNo() %>')"><%=arr.get(k).getNo() %></a></td>
-						<td class="t_center"><a href="javascript:goView('<%=arr.get(k).getNo() %>')"><%=arr.get(k).getTitle()%> </a></td>
+						<td class="t_center">
+							<a href="javascript:goView('<%=arr.get(k).getNo() %>')">
+							<%
+								if(arr.get(k).getTitle().length() > 30){out.print(arr.get(k).getTitle().substring(0,30)+"..."); } 
+								else{out.print(arr.get(k).getTitle());	}
+							%>
+							</a>
+						</td>
 						<td><%=arr.get(k).getReg_name() %></td>
 						<td><%=arr.get(k).getReg_date() %></td>
 						<td><%=arr.get(k).getHit() %></td>

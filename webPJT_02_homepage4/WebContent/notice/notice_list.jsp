@@ -17,7 +17,7 @@
 	ArrayList<Notice_dto> arr = dao.getNoticeList(select, search);
 	
 	//*************page 시작**************/
-		int	list_setup_count = 10;			// 한 페이지에 출력될 List 수 
+		int	list_setup_count = 3;			// 한 페이지에 출력될 List 수 
 
 
 		String r_page = request.getParameter("r_page");
@@ -82,6 +82,8 @@
 </script>
 		<form name="pageForm">
 			<input type="hidden" name="r_page">
+			<input type="hidden" name="t_select" value="<%=select%>">
+			<input type="hidden" name="t_search" value="<%=search%>">
 		</form>
 		<form name="notiView">
 			<input type="hidden" name="t_no">
@@ -139,7 +141,14 @@
 %>
 					<tr>
 						<td><a href="javascript:goView('<%=arr.get(k).getNo() %>')"><%=arr.get(k).getNo() %></a></td>
-						<td class="t_center"><a href="notice_view.jsp?t_no=<%=arr.get(k).getNo() %>"><%=arr.get(k).getTitle() %></a></td>
+						<td class="t_center">
+							<a href="notice_view.jsp?t_no=<%=arr.get(k).getNo() %>">
+								<%
+								if(arr.get(k).getTitle().length() > 30){out.print(arr.get(k).getTitle().substring(0,30)+"..."); } 
+								else{out.print(arr.get(k).getTitle());	}
+								%>
+							</a>
+						</td>
 						<td>
 						<%if(arr.get(k).getAttach() != null){ %>	
 							<img src="../images/clip.png"></td>

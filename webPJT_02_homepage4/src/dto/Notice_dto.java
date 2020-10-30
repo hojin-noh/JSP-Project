@@ -1,8 +1,16 @@
 package dto;
 
 public class Notice_dto {
-	String no, title, content, attach, reg_name, reg_date;
+	String no, title, content, attach, reg_name, reg_date, rownum;
 	int hit;
+	
+	public Notice_dto(String no, String title, String reg_date, String rownum) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.reg_date = reg_date;
+		this.rownum = rownum;
+	}
 	public Notice_dto(String no, String title, String content, String attach, String reg_name, String reg_date,
 			int hit) {
 		super();
@@ -35,6 +43,8 @@ public class Notice_dto {
 	public int getHit() {
 		return hit;
 	}
-	
+	public String getRownum() {
+		return rownum;
+	}
 	
 }
