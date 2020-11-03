@@ -127,7 +127,8 @@
       <Context docBase="webPJT_02_homepage2" path="/webPJT_02_homepage2" reloadable="true" source="org.eclipse.jst.jee.server:webPJT_02_homepage2"/>
       <Context docBase="webPJT_02_homepage3" path="/webPJT_02_homepage3" reloadable="true" source="org.eclipse.jst.jee.server:webPJT_02_homepage3"/>
       <Context docBase="webPJT_02_homepage4" path="/webPJT_02_homepage4" reloadable="true" source="org.eclipse.jst.jee.server:webPJT_02_homepage4"/>
-      <Context docBase="webPJT_02_노호진_servlet_text" path="/" reloadable="true" source="org.eclipse.jst.jee.server:webPJT_02_노호진_servlet_text"/></Host>
+      <Context docBase="webPJT_02_노호진_servlet_text" path="/webPJT_02_노호진_servlet_text" reloadable="true" source="org.eclipse.jst.jee.server:webPJT_02_노호진_servlet_text"/>
+      <Context docBase="webPJT_99_servlet" path="/" reloadable="true" source="org.eclipse.jst.jee.server:webPJT_99_servlet"/></Host>
     </Engine>
   </Service>
 </Server>
