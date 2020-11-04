@@ -111,7 +111,7 @@ public class CommonUtil{
     }
 
 	// 페이지
-	public static String pageList2(int current_page,int totalpage){
+	public static String pageListPost(int current_page,int totalpage){
 		int pagenumber;    //화면에 보여질 페이지 인덱스수
 		int startpage;     //화면에 보여질 시작 페이지 번호
 		int endpage;       //화면에 보여질 마지막 페이지 번호

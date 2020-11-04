@@ -3,20 +3,13 @@
 
 
 <%@ include file="/common_head.jsp" %>
-<%@ page import="dto.*, java.util.*, common.*" %>
+<%@ page import="dto.*, java.util.*" %>
 
 
 <%
 	ArrayList<Notice_dto> dtos = (ArrayList<Notice_dto>)request.getAttribute("t_dtos");
 	String select = (String)request.getAttribute("t_select");
 	String search = (String)request.getAttribute("t_search");
-	
-	
-	int v_count = (int)request.getAttribute("v_count");
-	int for_count = (int)request.getAttribute("for_count");
-	int a_count = (int)request.getAttribute("a_count");
-	int current_page = (int)request.getAttribute("current_page");
-	int total_page = (int)request.getAttribute("total_page");
 	
 %>
 
@@ -86,10 +79,7 @@
 						</tr>
 					</thead>
 					<tbody>
-<%	if ( dtos.size() > 0 ){
-		for(int k = 0 ; k < dtos.size() ; k++ )	{
-			if(v_count == for_count){ 
-%>	
+				<%for(int k = 0; k < dtos.size(); k++){ %>		
 						<tr>
 							<td><a href="/NoticeView?t_no=<%=dtos.get(k).getNo() %>"> <%=dtos.get(k).getNo() %></a></td>
 							<td class="txt"><a href="javascript:goView('<%=dtos.get(k).getNo() %>')"><%=dtos.get(k).getTitle() %></a></td>
@@ -98,27 +88,16 @@
 									<img src="/images/clip.png">	
 								<%} %>
 							</td>
-							<td><%=dtos.get(k).getReg_name() %></td>
 							<td><%=dtos.get(k).getReg_date() %></td>
 							<td><%=dtos.get(k).getHit() %></td>
 						</tr>
-<%
-				v_count = v_count + 1;
-				for_count = for_count + 1;
-			}else { 
-				v_count = v_count + 1;
-			}
-			if(v_count == a_count)break; 
-		}
-	}
-%>		
+				<%		}		 %>		
 					</tbody>
 				</table>
 			</div>
 			
 			<div class="page-number">
 				<div class="page-number">
-<!-- 			
 					<a href="#" class="icon"><i class="fas fa-arrow-circle-left fa-lg"></i></a>
 					<a href="#" class="on">1</a>
 					<a href="#">2</a>
@@ -132,10 +111,6 @@
 					<a href="#" class="more">…</a>
 					<a href="#" class="icon"><i class="fas fa-arrow-circle-right fa-lg"></i></a>
 					<a href="/NoticeWriteForm" class="btn-write">글쓰기</a>
- -->						
-<% 
-					out.println(CommonUtil.pageListPost(current_page, total_page));		
-%>	
 				</div>				
 			</div>
 		

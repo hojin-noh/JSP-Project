@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.CommonUtil;
 import dao.Notice_dao;
 import dto.Notice_dto;
 
 /**
- * Servlet implementation class DBNoticeSave
+ * Servlet implementation class NoticeView
  */
-@WebServlet("/DBNoticeSave")
-public class DBNoticeSave extends HttpServlet {
+@WebServlet("/NoticeView")
+public class NoticeView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DBNoticeSave() {
+    public NoticeView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,32 +31,15 @@ public class DBNoticeSave extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		Notice_dao dao = new Notice_dao();
+		String no = request.getParameter("t_no");
+		dao.hitCount(no);
+		Notice_dto dto = dao.getNoticeView(no);
 		
-		String no = dao.getNoticeNo();
-		String title = request.getParameter("t_title");
-		String content = request.getParameter("t_content");
-		String reg_name = "관리자";
-		String reg_date = CommonUtil.getToday();
+		request.setAttribute("t_dto", dto);
+		RequestDispatcher rd = request.getRequestDispatcher("/notice/notice_view.jsp");
 		
-		Notice_dto dto = new Notice_dto(no, title, content, "", reg_name, reg_date,0);
-		
-		String msg = "";
-		int result = dao.SaveNotice(dto);
-		if(result == 0) { 
-			msg = " 등록 실패~ ";
-		}
-		else {
-			msg = " 등록 성공~ ";
-		}
-		request.setAttribute("t_msg", msg);
-		request.setAttribute("t_url", "/NoticeList");
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/common_alert_page.jsp");
 		rd.forward(request, response);
-		
-		//response.sendRedirect("/NoticeList");
 	
 	}
 
