@@ -75,10 +75,11 @@ public class News_dao {
 	
 	
 	// 목록 조회
-	public ArrayList<News_dto> getNewsView(){
+	public ArrayList<News_dto> getNewsView(String select, String search){
 		ArrayList<News_dto> arr = new ArrayList<News_dto>();
-		String query = " select no, title, reg_name, to_char(reg_date,'yyyy-MM-dd'), hit\r\n" + 
+		String query = "select no, title, reg_name, to_char(reg_date,'yyyy-MM-dd'), hit \r\n" + 
 						" from h02_news\r\n" + 
+						" where "+select+" like '%"+search+"%'\r\n" + 
 						" order by no desc";
 		
 		try {
@@ -135,8 +136,44 @@ public class News_dao {
 		
 		return result;
 	}
+
 	
-	
+	//목록조회
+	public News_dto getNewsView(String no){
+		News_dto dto = null;
+		String query = " select no, title, content, reg_name, to_char(reg_date,'yyyy-MM-dd'), hit\r\n" + 
+						" from h02_news\r\n" + 
+						" where no = '"+no+"'";
+
+		try {
+			connection = common.getConnection();
+			ps = connection.prepareStatement(query);
+			rs = ps.executeQuery();
+		
+			
+			if(rs.next()) {
+				String nn 		 = rs.getString(1);
+				String title 	 = rs.getString(2);
+				String content 	 = rs.getString(3);
+				String reg_name  = rs.getString(4);
+				String reg_date  = rs.getString(5);
+				int hit			 = rs.getInt(6);
+				
+				dto = new News_dto(nn, title, content, reg_name, reg_date, hit);
+			}
+			
+			
+		}catch(SQLException se) {
+			System.out.println(" getNewsView() query 오류 " + query);
+		}catch(Exception e) {
+			System.out.println(" getNewsView() 오류 ");
+		}finally {
+			common.close(connection, ps, rs);
+		}
+		
+		return dto;
+	}
+		
 	
 	
 	//번호 생성
@@ -177,7 +214,26 @@ public class News_dao {
 		
 	}
 	
-	
+	//조회수 증가
+			public void hitCount(String no) {
+				String query = "update h02_news\r\n" + 
+								" set hit = hit + 1\r\n" + 
+								" where no = '"+no+"'";
+				
+				try {
+					connection = common.getConnection();
+					ps = connection.prepareStatement(query);
+					ps.executeUpdate(); 
+					
+				}catch(SQLException se) {
+					System.out.println(" hitCount() query 오류 " + query);
+				}catch(Exception e) {
+					System.out.println(" hitCount() 오류 ");
+				}finally {
+					common.close(connection, ps);
+				}
+				
+			}	
 	
 	
 }

@@ -12,11 +12,11 @@
 	String search = (String)request.getAttribute("t_search");
 	
 	
-	int v_count = (int)request.getAttribute("v_count");
-	int for_count = (int)request.getAttribute("for_count");
-	int a_count = (int)request.getAttribute("a_count");
-	int current_page = (int)request.getAttribute("current_page");
-	int total_page = (int)request.getAttribute("total_page");
+	int v_count 		= (int)request.getAttribute("v_count");
+	int for_count		= (int)request.getAttribute("for_count");
+	int a_count 		= (int)request.getAttribute("a_count");
+	int current_page	= (int)request.getAttribute("current_page");
+	int total_page 		= (int)request.getAttribute("total_page");
 	
 %>
 
@@ -33,7 +33,20 @@
 			view.action		= "/NoticeView";
 			view.submit();
 		}
+		function goPage(pageNumber){
+			notiForm.r_page.value	=	pageNumber;
+			notiForm.method			=	"post";
+			notiForm.action			=	"/NoticeList";
+			notiForm.submit();
+		}
 </script>
+<!--  	<form name="pageForm">
+			<input type="hidden" name="r_page">
+			<input type="hidden" name="t_select" value="<%=select%>">
+			<input type="hidden" name="t_search" value="<%=search%>">
+		</form> 
+	아래의 notiform이랑 통합할 수 있음 대신에 44번째 줄을 notiform 에 넣어줘야 함
+--> 
 	<form name="view">
 		<input type="hidden" name="t_no">
 	</form>
@@ -42,9 +55,9 @@
 		<div class="notice">
 			<div class="sub-notice">
 				<h2 class="color"><a href="/NoticeList"><i class="fas fa-check"></i> NOTICE</a></h2>	
-				<h2><a href="/news/news_list.jsp"> NEWS</a></h2>	
-				<h2><a href="/qna/qna_list.jsp"> QnA</a></h2>
-				<h2><a href="/faq/faq_list.jsp"> FAQ</a></h2>	
+				<h2><a href="/NewsList"> NEWS</a></h2>	
+				<h2><a href="/QnaList"> QnA</a></h2>
+				<h2><a href="/FaqList"> FAQ</a></h2>	
 			</div>
 
 		<div class="search_wrap">
@@ -52,6 +65,7 @@
 				<p>* 총게시글 : <span><%=dtos.size() %></span>건</p>
 			</div>
 			<form name="notiForm">
+			<input type="hidden" name="r_page">
 			<div class="search_group">
 				<select name="t_select" class="select">
 					<option value="title" <%if(select.equals("title")) out.print("selected"); %> >제목</option>
@@ -98,7 +112,6 @@
 									<img src="/images/clip.png">	
 								<%} %>
 							</td>
-							<td><%=dtos.get(k).getReg_name() %></td>
 							<td><%=dtos.get(k).getReg_date() %></td>
 							<td><%=dtos.get(k).getHit() %></td>
 						</tr>
@@ -131,14 +144,14 @@
 					<a href="#">9</a>
 					<a href="#" class="more">…</a>
 					<a href="#" class="icon"><i class="fas fa-arrow-circle-right fa-lg"></i></a>
+ -->					
 					<a href="/NoticeWriteForm" class="btn-write">글쓰기</a>
- -->						
 <% 
-					out.println(CommonUtil.pageListPost(current_page, total_page));		
+					out.println(CommonUtil.pageListPost(current_page, total_page, 5));		
 %>	
 				</div>				
 			</div>
-		
+							
 		</div>
 		
 		
