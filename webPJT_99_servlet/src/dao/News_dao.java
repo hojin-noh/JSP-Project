@@ -18,12 +18,11 @@ public class News_dao {
 	ResultSet rs = null;
 	
 	//수정
-	public int updateNews(Notice_dto dto) {
+	public int updateNews(News_dto dto) {
 		int result = 0;
 		String query = "  update h02_news\r\n" + 
 						"  set title='"+dto.getTitle()+"',\r\n" + 
 						"      content='"+dto.getContent()+"',\r\n" + 
-						"      attach='"+dto.getAttach()+"',\r\n" + 
 						"      reg_name='"+dto.getReg_name()+"',\r\n" + 
 						"      reg_date='"+dto.getReg_date()+"'\r\n" + 
 						"  where no = '"+dto.getNo()+"'";
@@ -114,7 +113,7 @@ public class News_dao {
 	}
 	
 	//등록
-	public int saveNews(Notice_dto dto){
+	public int saveNews(News_dto dto){
 		int result = 0;
 		String query="insert into h02_news\r\n" + 
 				"(no, title, content, reg_name, reg_date)\r\n" + 
