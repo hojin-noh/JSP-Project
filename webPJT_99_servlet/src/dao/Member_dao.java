@@ -80,7 +80,6 @@ public class Member_dao {
 		String query = "insert into h02_member\r\n" + 
 				"values\r\n" + 
 				"('"+dto.getId()+"','"+dto.getName()+"','"+dto.getPw()+"','"+dto.getArea()+"','"+dto.getAddress()+"','"+dto.getTel_1()+"','"+dto.getTel_2()+"','"+dto.getTel_3()+"','"+dto.getMf()+"','"+dto.getHobby_r()+"','"+dto.getHobby_s()+"','"+dto.getHobby_t()+"','"+dto.getReg_date()+"')";
-		
 		try {
 			connection = common.getConnection();
 			ps = connection.prepareStatement(query);

@@ -1,4 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ include file="/common/common_session_info.jsp" %>
+
 <!doctype html>
 <html lang="ko">
 	<title>홍길동</title>
@@ -42,7 +44,11 @@
 							<li><a href="http://www.facebook.com/elmusickorea" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
 							<li><a href="https://blog.naver.com/elmusicstudio" target="_blank"><i class="fab fa-blogger-b"> </i></a></li>
 							<li><a href="https://www.youtube.com/channel/UCkoJ_TsGn-WqDVWEzGnhfcA"target="_blank"><i class="fab fa-youtube"> </i></a></li>
-							<li><a href="/member/member_login.jsp"><i class="fas fa-user"></i></a></li>
+<%if(session_name == null){ %>
+	<li><a href="/Login"><i class="fas fa-user"></i></a></li>
+<% } else { %>
+	<li><a href="/LogOut"><i class=" fas fa-sign-out-alt"></i></a></li>
+<% } %>
 						</ul>
 					</div>
 					<div class="side-text">

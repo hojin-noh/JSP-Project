@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
 <%@ include file="/common_head.jsp" %>
 <%@ page import="dto.*, java.util.*, common.*" %>
 
@@ -145,10 +143,13 @@
 					<a href="#" class="more">…</a>
 					<a href="#" class="icon"><i class="fas fa-arrow-circle-right fa-lg"></i></a>
  -->					
-					<a href="/NoticeWriteForm" class="btn-write">글쓰기</a>
-<% 
-					out.println(CommonUtil.pageListPost(current_page, total_page, 5));		
-%>	
+					
+<%
+					out.println(CommonUtil.pageListPost(current_page, total_page, 5));
+					if(session_level.equals("top")){		
+%>
+						<a href="/NoticeWriteForm" class="btn-write">글쓰기</a>
+<% 					}%>
 				</div>				
 			</div>
 							
