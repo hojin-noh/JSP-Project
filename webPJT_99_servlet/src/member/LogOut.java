@@ -30,8 +30,8 @@ public class LogOut extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String name = (String)request.getAttribute("session_name");
-		
+		String name = (String)session.getAttribute("session_name");
+	
 		session.invalidate();
 		request.setAttribute("t_msg", name + " 님 로그 아웃 되었습니다. ");
 		request.setAttribute("t_url", "/index.jsp");

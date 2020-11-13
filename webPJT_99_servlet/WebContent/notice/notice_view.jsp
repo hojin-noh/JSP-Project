@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<%@ page import="dto.*" %>  
+<%@ page import="dto.*, common.*" %>  
 <%
 	Notice_dto dto = (Notice_dto)request.getAttribute("t_dto");
 %>
@@ -20,8 +20,9 @@
 			}
 		}
 </script>		
-	<form name="noti">
+	<form name="noti" >
 		<input type="hidden" name="t_no" value="<%=dto.getNo() %>">
+		<input type="hidden" name="t_attach" value="<%=CommonUtil.checkNull(dto.getAttach()) %>">
 	</form>
 		<!-- sub page start -->
 		<div class="notice">
@@ -61,7 +62,7 @@
 							
 							<tr>
 								<th>파일 첨부</th>
-								<td  colspan="3" style="text-align:left">
+								<td  colspan="3" name="t_attach" style="text-align:left">
 									<% if(dto.getAttach() != null){ %>
 										<a href="/common/filedown.jsp?t_file=<%=dto.getAttach() %>&t_gubun=notice"><%=dto.getAttach() %></a>
 									<% } %>

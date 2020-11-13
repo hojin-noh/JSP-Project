@@ -135,9 +135,11 @@
 					
 <%	
 	out.println(CommonUtil.pageListPost(current_page, total_page,5));
+	if(session_level.equals("top")){
 %>				
 					<a href="#" class="icon"><i class="fas fa-arrow-circle-right fa-lg"></i></a>
 					<a href="/NewsWriteForm" class="btn-write">글쓰기</a>
+<%	} %>
 				</div>				
 			</div>
 	 	

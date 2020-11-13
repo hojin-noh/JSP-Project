@@ -35,7 +35,6 @@ public class Notice_dao {
 					"    from h02_"+pageType+"\r\n" + 
 					"    order by no desc)\r\n" + 
 					" where rownum < 8";
-System.out.print(query);
 	try {
 		connection = common.getConnection();
 		ps = connection.prepareStatement(query);

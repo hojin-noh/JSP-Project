@@ -1,6 +1,5 @@
-package notice;
+package faq;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -10,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.CommonUtil;
-import dao.Notice_dao;
+import dao.Faq_dao;
+import dto.Faq_dto;
 
 /**
- * Servlet implementation class DBNoticeDelete
+ * Servlet implementation class NoticeUpdateForm
  */
-@WebServlet("/DBNoticeDelete")
-public class DBNoticeDelete extends HttpServlet {
+@WebServlet("/FaqWrite")
+public class FaqWrite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DBNoticeDelete() {
+    public FaqWrite() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +31,11 @@ public class DBNoticeDelete extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		Notice_dao dao = new Notice_dao();
-		String no = request.getParameter("t_no");
-		String delFile = request.getParameter("t_attach");
-		int result = dao.deleteNotice(no);
-		if(!delFile.equals("")) {
-			File df = new File(CommonUtil.file_dir_notice, delFile);
-			boolean dd = df.delete();
-			System.out.println(" 첨부삭제 : " + dd);
-		}
-		String msg = "";
-		if(result == 1 ) { 
-			msg = " 삭제 성공 ~ ";
-		}
-		else {
-			msg = " 삭제 실패 ~ ";
-		}	
-		request.setAttribute("t_msg", msg);
-		request.setAttribute("t_url", "/NoticeList");
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/common_alert_page.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/faq/faq_write.jsp");
 		rd.forward(request, response);
+	
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
